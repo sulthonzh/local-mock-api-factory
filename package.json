@@ -1,0 +1,20 @@
+{
+  "name": "local-mock-api-factory",
+  "version": "1.0.0",
+  "description": "Spin up mock REST APIs from a simple JSON/YAML file. Zero config, instant local dev server.",
+  "main": "src/index.js",
+  "bin": {
+    "mockapi": "src/cli.js"
+  },
+  "scripts": {
+    "start": "node src/cli.js",
+    "test": "node test/index.test.js"
+  },
+  "keywords": ["mock", "api", "rest", "fake", "testing", "prototype", "local"],
+  "author": "sulthonzh",
+  "license": "MIT",
+  "dependencies": {},
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

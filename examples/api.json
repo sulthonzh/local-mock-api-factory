@@ -1,0 +1,48 @@
+{
+  "port": 3456,
+  "cors": true,
+  "routes": {
+    "/users": {
+      "get": {
+        "status": 200,
+        "body": [
+          { "id": 1, "name": "Ada Lovelace", "email": "ada@example.com" },
+          { "id": 2, "name": "Alan Turing", "email": "alan@example.com" }
+        ]
+      },
+      "post": {
+        "status": 201,
+        "body": { "ok": true, "message": "User created" }
+      }
+    },
+    "/users/:id": {
+      "get": {
+        "status": 200,
+        "body": { "id": 1, "name": "Ada Lovelace", "email": "ada@example.com" }
+      },
+      "delete": {
+        "status": 204,
+        "body": null
+      }
+    },
+    "/health": {
+      "get": {
+        "status": 200,
+        "body": {
+          "status": "ok",
+          "timestamp": { "_eval": "new Date().toISOString()" }
+        }
+      }
+    },
+    "/products": {
+      "get": {
+        "status": 200,
+        "delay": 500,
+        "body": [
+          { "id": 1, "name": "Widget", "price": 9.99 },
+          { "id": 2, "name": "Gadget", "price": 24.99 }
+        ]
+      }
+    }
+  }
+}
