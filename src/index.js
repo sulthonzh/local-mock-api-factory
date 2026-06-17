@@ -46,13 +46,13 @@ function matchRoute(pattern, pathname) {
  *  - { _eval: "expression" } — simple JS eval for dynamic data (date, count, etc.)
  *  - { _file: "path" } — serve from a file
  */
-function resolveBody(bodyDef, params, query) {
+function resolveBody(bodyDef, params, query, basePath) {
   if (bodyDef === null || bodyDef === undefined) return null;
   if (typeof bodyDef !== 'object' || Array.isArray(bodyDef)) return bodyDef;
 
   // _file: load from file
   if (bodyDef._file) {
-    const fpath = path.resolve(bodyDef._file);
+    const fpath = path.resolve(basePath || '', bodyDef._file);
     if (fs.existsSync(fpath)) {
       return JSON.parse(fs.readFileSync(fpath, 'utf-8'));
     }
@@ -108,6 +108,7 @@ function buildRoutes(definition) {
  * Create and return an HTTP server.
  */
 function createServer(definition, options = {}) {
+  const definitionFilePath = options.definitionFilePath || '';
   const routes = buildRoutes(definition);
   const base = definition.basePath || '';
   const cors = definition.cors !== false; // enabled by default
@@ -134,7 +135,7 @@ function createServer(definition, options = {}) {
       const fullPath = base + route.pattern;
       const match = matchRoute(fullPath, pathname);
       if (match.matched && route.method === req.method) {
-        const body = resolveBody(route.body, match.params, query);
+        const body = resolveBody(route.body, match.params, query, path.dirname(definitionFilePath));
         const headers = { ...route.headers };
         if (cors) {
           headers['Access-Control-Allow-Origin'] = '*';
@@ -175,7 +176,7 @@ function start(definitionPath, options = {}) {
     try {
       const definition = loadDefinition(definitionPath);
       const port = options.port || definition.port || 3456;
-      const server = createServer(definition, options);
+      const server = createServer(definition, { ...options, definitionFilePath: definitionPath });
 
       server.listen(port, () => {
         const routeCount = buildRoutes(definition).length;
