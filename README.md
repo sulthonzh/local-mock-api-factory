@@ -1,5 +1,15 @@
 # local-mock-api-factory
 
+> **⚠️ DEPRECATED - CRITICAL SECURITY VULNERABILITY**
+>
+> This project contains a critical security vulnerability and is deprecated. Please use [msw](https://github.com/mswjs/msw), [json-server](https://github.com/typicode/json-server), or [MirageJS](https://miragejs.com/) instead.
+>
+> **Security Issue:** The `_eval` feature uses `new Function()` for arbitrary code execution, which enables remote code injection attacks if used in production or shared environments. This vulnerability cannot be fixed without a complete redesign.
+>
+> **Deprecation Date:** June 23, 2026
+
+---
+
 > Spin up a mock REST API from a JSON file. Zero dependencies, zero config.
 
 Because you shouldn't have to set up Express, write boilerplate, or install a heavy framework just to fake an API for your frontend.
