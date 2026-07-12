@@ -8,13 +8,29 @@
   },
   "scripts": {
     "start": "node src/cli.js",
-    "test": "node test/index.test.js"
+    "test": "node test/index.test.js",
+    "prepublishOnly": "npm test"
   },
-  "keywords": ["mock", "api", "rest", "fake", "testing", "prototype", "local"],
+  "keywords": [
+    "mock",
+    "api",
+    "rest",
+    "fake",
+    "testing",
+    "prototype",
+    "local"
+  ],
   "author": "sulthonzh",
   "license": "MIT",
   "dependencies": {},
   "engines": {
     "node": ">=18.0.0"
+  },
+  "files": [
+    "src/",
+    "README.md"
+  ],
+  "devDependencies": {
+    "@changesets/cli": "^2.27.0"
   }
 }
